@@ -2,15 +2,19 @@ plugins {
     id 'org.springframework.boot' version '1.5.9.RELEASE'
 }
 
+group = 'pl.piomin.services'
+version = '1.0-SNAPSHOT'
+sourceCompatibility = '11'
+
 apply plugin: 'java-library'
 apply plugin: 'scala'
 
 dependencies {
-	compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
-	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
-	compile group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
-    testCompile group: 'io.gatling.highcharts', name: 'gatling-charts-highcharts', version: '2.3.0'
-    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+	compile("org.springframework.boot:spring-boot-starter-web")
+	compile("org.springframework.boot:spring-boot-starter-data-jpa")
+	compile("org.postgresql:postgresql:42.1.4")
+    testCompile("io.gatling.highcharts:gatling-charts-highcharts:2.3.0")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
 }
 
 task loadTest(type: JavaExec) {
@@ -28,5 +32,9 @@ task loadTest(type: JavaExec) {
            "--binaries-folder", sourceSets.test.output.classesDir.toString(),
            "--bodies-folder", sourceSets.test.resources.srcDirs.toList().first().toString() + "/gatling/bodies",
    ]
+}
+
+repositories {
+    jcenter()
 }
 
